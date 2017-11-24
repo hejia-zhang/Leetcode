@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <vector>
 #include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -17,11 +18,11 @@ public:
         string strRes;
 
         unordered_map<char, vector<size_t>> t_mapCharVecIdx;
-        int t_palTable[1000 * 1000];
+        unsigned short t_palTable[1000 * 1000];
         memset(t_palTable, 0, sizeof(t_palTable));
 
         size_t idx = 0;
-        for (const auto& val : strRes)
+        for (const auto& val : s)
         {
             const auto& iter = t_mapCharVecIdx.find(val);
             // If the char shows up first time
@@ -36,25 +37,31 @@ public:
             }
             else
             {
+                iter->second.push_back(idx);
                 for (const auto& val : iter->second)
                 {
-                    if (1 == idx - val)
+                    if ((idx - val <= 2) || (*(t_palTable + val + 1 + (idx - 1) * s.length()) == 1))
                     {
-                        iter->second.push_back(idx);
                         *(t_palTable + val + (idx) * s.length()) = 1;
-                    }
-                    else if (val < idx - 1)
-                    {
-                        if ()
+                        if (t_maxLen < idx - val + 1)
+                        {
+                            t_maxLen = idx - val + 1;
+                            strRes = s.substr(val, idx - val + 1);
+                        }
                     }
                 }
             }
             idx++;
         }
+        return strRes;
     }
 };
 
 int main()
 {
-
+    cout << "Please input your string: ";
+    string t_strIn;
+    cin >> t_strIn;
+    Solution sol{};
+    cout << "The longest palindromic substring is: " << sol.longestPalindrome(t_strIn) << endl;
 }
