@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/ZigZag_Conversion.dir/Main.cpp.o  -o ../Output/ZigZag_Conversion/ZigZag_Conversion -rdynamic 
