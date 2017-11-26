@@ -6,3 +6,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(Longest_Palindromic_Substring)
 add_subdirectory(ZigZag_Conversion)
+add_subdirectory(Reverse_Integer)
