@@ -26,43 +26,50 @@ struct TreeNode
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-TreeNode *makeTree(vector<int>& nums)
-{
-    if (nums.size() == 0)
-    {
-        return nullptr;
-    }
-
-    default_random_engine t_ranEng;
-    uniform_int_distribution<> u(0, 1);
-
-    for (const auto& val : nums)
-    {
-
-    }
-}
-
 class Solution {
 public:
-    int rob(TreeNode* root) {
+    int rob(TreeNode* root)
+    {
+        if (root == nullptr)
+        {
+            return 0;
+        }
 
+        int grandll = 0;
+        int grandlr = 0;
+        int grandrl = 0;
+        int grandrr = 0;
+
+        if (root->left != nullptr)
+        {
+            grandll = rob(root->left->left);
+            grandlr = rob(root->left->right);
+
+        }
+
+        if (root->right != nullptr)
+        {
+            grandrl = rob(root->right->left);
+            grandrr = rob(root->right->right);
+        }
+
+        return max(rob(root->left) + rob(root->right), root->val + grandll + grandlr + grandrl + grandrr);
     }
 };
 
 int main()
 {
-    string line;
-    getline(cin, line);
-    istringstream iss{line};
-    int t_num;
-    vector<int> t_nums;
-    while (iss >> t_num)
-    {
-        t_nums.push_back(t_num);
-    }
+    TreeNode root(3);
+    TreeNode l(2);
+    TreeNode r(3);
+    TreeNode lr(3);
+    TreeNode rr(1);
 
-    TreeNode *root = makeTree(t_nums);
+    root.left = &l;
+    root.right = &r;
+    l.right = &lr;
+    r.right = &rr;
 
     Solution sol = Solution{};
-    cout << "The maximum amount of money the thief can rob is " << sol.rob(root) << endl;
+    cout << "The maximum amount of money the thief can rob is " << sol.rob(&root) << endl;
 }
