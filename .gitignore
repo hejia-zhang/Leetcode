@@ -4,3 +4,11 @@
 #BUILD
 cmake-build-debug
 cmake-build-release
+
+CMakeFiles
+*.cmake
+Makefile
+CMakeCache.txt
+Debug
+Output
+*.cbp
